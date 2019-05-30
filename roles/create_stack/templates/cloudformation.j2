@@ -3,12 +3,12 @@
     "AWSTemplateFormatVersion": "2010-09-09",
     "Outputs" : {
         "PrvIp" : {
-          "Value" : { "Fn::GetAtt" : [ "{{ project_id }}", "PrivateIp" ]},
-          "Description" : "{{ project_id }} server's Private IP Address"
+          "Value" : { "Fn::GetAtt" : [ "{{ project_name }}", "PrivateIp" ]},
+          "Description" : "{{ project_name }} server's Private IP Address"
         }
     },
     "Resources": {
-        "{{ project_id }}": {
+        "{{ project_name }}": {
             "Type": "AWS::EC2::Instance",
             "Properties": {
                 "DisableApiTermination": "false",
@@ -20,38 +20,12 @@
                 "Tags": [
                     {
                         "Key": "Name",
-                        "Value": "{{ project_id }}{{ envt_suffix }}"
+                        "Value": "{{ project_name }}{{ envt_suffix }}"
                     },
                     {
                         "Key": "Owner",
                         "Value": "{{ cloud_resource_owner }}"
                     }
-                ],
-                "Volumes": [
-                  {
-                    "Device": "/dev/{{ big_disk_device }}",
-                    "VolumeId": {
-                      "Ref": "volData"
-                    }
-                  },
-                  {
-                    "Device": "/dev/{{ backup_disk_device }}",
-                    "VolumeId": {
-                      "Ref": "volBackup"
-                    }
-                  },
-                  {
-                    "Device": "/dev/{{ gwc_disk_device }}",
-                    "VolumeId": {
-                      "Ref": "volGWC"
-                    }
-                  },
-                  {
-                    "Device": "/dev/{{ docker_disk_device }}",
-                    "VolumeId": {
-                      "Ref": "volDocker"
-                    }
-                  }
                 ],
                 "NetworkInterfaces": [
                     {
@@ -62,7 +36,7 @@
                         {{ assign_private_ip }}
                         "GroupSet": [
                             {
-                                "Ref": "SG{{ project_id }}"
+                                "Ref": "SG{{ project_name }}"
                             }
                         ]
                     }
@@ -75,58 +49,11 @@
             }
         },
         {{ associate_elastic_ip }}
-        "volData": {
-            "Type": "AWS::EC2::Volume",
-            "Properties": {
-                "AvailabilityZone": "{{ aws_zone }}",
-                "Size": "{{ big_disk_size }}",
-                "VolumeType": "gp2"
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "1d252d89-effb-4317-b886-6ca4d302f6c0"
-                }
-            }
-        },
-        "volBackup": {
-            "Type": "AWS::EC2::Volume",
-            "Properties": {
-                "AvailabilityZone": "{{ aws_zone }}",
-                "Size": "{{ backup_disk_size }}",
-                "VolumeType": "gp2"
-            },
-        },
-        "volGWC": {
-            "Type": "AWS::EC2::Volume",
-            "Properties": {
-                "AvailabilityZone": "{{ aws_zone }}",
-                "Size": "{{ gwc_disk_size }}",
-                "VolumeType": "gp2"
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "1d252d89-effb-4317-b886-6ca4d302f6c0"
-                }
-            }
-        },
-        "volDocker": {
-            "Type": "AWS::EC2::Volume",
-            "Properties": {
-                "AvailabilityZone": "{{ aws_zone }}",
-                "Size": "{{ docker_disk_size }}",
-                "VolumeType": "gp2"
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "1d252d89-effb-4317-b886-6ca4d302f6c0"
-                }
-            }
-        },
-        "SG{{ project_id }}": {
+        "SG{{ project_name }}": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
-                "GroupName": "{{ project_id }}{{ envt_suffix }}",
-                "GroupDescription": "{{ project_id }} SG",
+                "GroupName": "{{ project_name }}{{ envt_suffix }}",
+                "GroupDescription": "{{ project_name }} SG",
                 "VpcId": "{{ vpc_id }}",
                 "Tags": [
                     {
@@ -135,7 +62,7 @@
                     },
                     {
                         "Key": "Name",
-                        "Value": "{{ project_id }}{{ envt_suffix }}"
+                        "Value": "{{ project_name }}{{ envt_suffix }}"
                     }
                 ]
             },
@@ -149,12 +76,12 @@
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
                 "GroupId": {
-                    "Ref": "SG{{ project_id }}"
+                    "Ref": "SG{{ project_name }}"
                 },
-                "Description": "HTTP from public",
+                "Description": "HTTPS from public",
                 "IpProtocol": "tcp",
-                "FromPort": "80",
-                "ToPort": "80",
+                "FromPort": "443",
+                "ToPort": "443",
                 "CidrIp": "0.0.0.0/0"
             }
         },
@@ -162,7 +89,7 @@
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
                 "GroupId": {
-                    "Ref": "SG{{ project_id }}"
+                    "Ref": "SG{{ project_name }}"
                 },
                 "Description": "SSH from Ansible control",
                 "IpProtocol": "tcp",
@@ -175,7 +102,7 @@
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
                 "GroupId": {
-                    "Ref": "SG{{ project_id }}"
+                    "Ref": "SG{{ project_name }}"
                 },
                 "Description": "SSH from devops home",
                 "IpProtocol": "tcp",
@@ -188,7 +115,7 @@
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
                 "GroupId": {
-                    "Ref": "SG{{ project_id }}"
+                    "Ref": "SG{{ project_name }}"
                 },
                 "Description": "SSH from devops work",
                 "IpProtocol": "tcp",
@@ -201,7 +128,7 @@
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
                 "GroupId": {
-                    "Ref": "SG{{ project_id }}"
+                    "Ref": "SG{{ project_name }}"
                 },
                 "Description": "SSH from devops work 2",
                 "IpProtocol": "tcp",
@@ -214,7 +141,7 @@
             "Type": "AWS::EC2::SecurityGroupIngress",
             "Properties": {
                 "GroupId": {
-                    "Ref": "SG{{ project_id }}"
+                    "Ref": "SG{{ project_name }}"
                 },
                 "Description": "SSH from devops VPN",
                 "IpProtocol": "tcp",
@@ -223,12 +150,11 @@
                 "CidrIp": "{{ ssh_source_ip_devops_VPN }}"
             }
         },
-        {{ envt_ingress_rules }}
         "egress1": {
             "Type": "AWS::EC2::SecurityGroupEgress",
             "Properties": {
                 "GroupId": {
-                    "Ref": "SG{{ project_id }}"
+                    "Ref": "SG{{ project_name }}"
                 },
                 "Description": "Allow all out",
                 "IpProtocol": "-1",

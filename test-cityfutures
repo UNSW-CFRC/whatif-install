@@ -1,23 +1,17 @@
 [targets]
-10.116.2.13 envt=dev org=cityfutures data_src=10.116.2.31
+10.116.2.126 envt=test org=cityfutures
 
 [cityfutures]
-10.116.2.13
+10.116.2.126
 localhost
 
-[small_sysdisk]
-10.116.2.13
-
-[dev]
-10.116.2.13
+[test]
+10.116.2.126
 localhost
 
-[dev-cityfutures]
+[test-cityfutures]
 localhost
-10.116.2.13
-
-[data_src]
-10.116.2.13 data_src=10.116.2.31
+10.116.2.126
 
 [local]
-localhost envt=dev data_src=10.116.2.31 org=cityfutures ansible_connection=local ansible_python_interpreter=/usr/bin/python
+localhost envt=test org=cityfutures ansible_connection=local ansible_python_interpreter=/usr/bin/python

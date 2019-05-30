@@ -1,0 +1,10 @@
+---
+- name: Clone whatif
+  git:
+    repo: '{{ repo_url }}'
+
+- name: Install whatif
+  shell: ./install.sh
+  args:
+    cwd: ~/{{ project_name }}/utils
+  become: True

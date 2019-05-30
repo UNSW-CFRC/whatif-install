@@ -1,0 +1,12 @@
+---
+- name: Create server
+  import_playbook: stack.yml
+
+- name: Prepare server
+  import_playbook: prep.yml
+
+- name: Install whatif
+  import_playbook: whatif.yml
+
+- name: Check site is up before exiting
+  import_playbook: check.yml
