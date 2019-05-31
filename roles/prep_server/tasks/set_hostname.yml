@@ -1,14 +1,17 @@
 ---
+- debug:
+    var: host_name
+
 - name: Write hostname into hosts
   lineinfile:
     dest: /etc/hosts
     insertafter: 127.0.0.1 localhost
     line: 127.0.1.1 {{ hostname }}
   become: true
-  when: ansible_hostname != hostname
+  when: ansible_hostname != host_name
 
 - name: Set hostname
   hostname:
-    name: '{{ hostname }}'
+    name: '{{ host_name }}'
   become: true
-  when: ansible_hostname != hostname
+  when: ansible_hostname != host_name
