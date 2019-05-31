@@ -1,0 +1,13 @@
+---
+- name: Install pip and git
+  apt:
+    name:
+      - python-pip
+      - git
+    update_cache: True
+  become: True
+
+- name: Install pexpect for Ansible
+  pip:
+    name: pexpect
+  become: True
