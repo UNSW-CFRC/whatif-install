@@ -2,6 +2,6 @@
 - name: Check site is up
   hosts: targets
   vars:
-    ansible_python_interpreter: /usr/bin/python3
+    ansible_python_interpreter: /usr/bin/python2.7
   roles:
   - check_site

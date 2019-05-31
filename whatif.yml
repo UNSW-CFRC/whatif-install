@@ -2,6 +2,6 @@
 - name: Install whatif
   hosts: targets
   vars:
-    ansible_python_interpreter: /usr/bin/python3
+    ansible_python_interpreter: /usr/bin/python2.7
   roles:
   - install_whatif
