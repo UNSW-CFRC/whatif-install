@@ -2,6 +2,7 @@
 - name: Clone whatif
   git:
     repo: '{{ repo_url }}'
+    dest: ~/{{ project_name }}
 
 - name: Install whatif
   expect:
