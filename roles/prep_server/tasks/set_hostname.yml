@@ -6,7 +6,7 @@
   lineinfile:
     dest: /etc/hosts
     insertafter: 127.0.0.1 localhost
-    line: 127.0.1.1 {{ hostname }}
+    line: 127.0.1.1 {{ host_name }}
   become: true
   when: ansible_hostname != host_name
 
