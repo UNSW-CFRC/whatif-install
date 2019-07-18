@@ -10,3 +10,4 @@
     - couchdb
     - tomcat7
     - apache2
+  become: True
