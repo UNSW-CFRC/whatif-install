@@ -1,0 +1,17 @@
+[targets]
+1.2.3.4 envt=prod org=cityfutures
+
+[cityfutures]
+1.2.3.4
+localhost
+
+[prod]
+1.2.3.4
+localhost
+
+[prod_cityfutures]
+localhost
+1.2.3.4
+
+[local]
+localhost envt=prod org=cityfutures ansible_connection=local ansible_python_interpreter=/usr/bin/python
