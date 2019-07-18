@@ -1,9 +1,9 @@
 ---
-- name: Wait up to 5 minutes until site is up
+- name: Wait up to 15 seconds until site is up
   uri:
     url: '{{ public_protocol }}://{{ http_hostname }}'
   register: site_check
-  retries: 60
+  retries: 3
   delay: 5
   until: site_check.status == 200
 
