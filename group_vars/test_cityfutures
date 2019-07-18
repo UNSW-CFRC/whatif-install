@@ -8,4 +8,5 @@ assign_private_ip: '"PrivateIpAddress": "{{ private_ip }}",'
 
 vpc_id: vpc-57c87032
 subnet_id: subnet-1823467d
+
 certfile_basename: SSL_Chain_{{ http_hostname }}
