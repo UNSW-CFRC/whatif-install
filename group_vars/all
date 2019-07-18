@@ -14,6 +14,7 @@ repo_owner: AURIN
 repo_url: https://github.com/{{ repo_owner }}/{{ project_name }}.git
 
 aws_keypair: WhatIf
+ansible_ssh_private_key_file: ~/.ssh/{{ aws_keypair }}.pem
 
 tmp_sitename_short: '{{ project }} ({{ envt }})'
 sitename_short: "{{ tmp_sitename_short | replace(' (prod)','') }}"
