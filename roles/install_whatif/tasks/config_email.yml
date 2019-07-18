@@ -22,5 +22,5 @@
   replace:
     path: /etc/aurin/envision-combined.properties
     regexp: '^\s*env.mail.from\s*=.*$'
-    replace: env.mail.from={{ ansible_env.user }}@{{ http_hostname }}
+    replace: env.mail.from={{ lookup('env', 'USER') }}@{{ http_hostname }}
   become: True
