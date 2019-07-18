@@ -12,3 +12,5 @@
     chdir: '{{ ansible_env.HOME }}/{{ project_name }}/utils'
     timeout:
   become: True
+
+- include_tasks: config_email.yml

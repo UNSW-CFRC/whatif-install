@@ -1,0 +1,26 @@
+---
+- name: Fix email 1/3 - set auth false
+# Fixes javax.mail.SendFailedException: Send failure (javax.mail.AuthenticationFailedException: null)
+  replace:
+    path: /etc/aurin/envision-combined.properties
+    regexp: '^\s*env.mail.auth\s*=.*$'
+    replace: env.mail.auth=false
+  become: True
+
+- name: Fix email 2/3 - comment smtpd_client_restrictions
+# Fixes <localhost[127.0.0.1]>: Client host rejected: Access denied
+  replace:
+    path: /etc/postfix/master.cf
+    regexp: '-o smtpd_client_restrictions=permit_sasl_authenticated,reject'
+    replace: '# -o smtpd_client_restrictions=permit_sasl_authenticated,reject'
+  become: True
+
+# Fixes <admin@whatif-test.be.unsw.edu.au>: Sender address rejected: User unknown in local recipient table
+
+- name: Fix email 3/3 - from address
+# Fixes javax.mail.SendFailedException: Send failure (javax.mail.AuthenticationFailedException: null)
+  replace:
+    path: /etc/aurin/envision-combined.properties
+    regexp: '^\s*env.mail.from\s*=.*$'
+    replace: env.mail.from={{ ansible_env.user }}@{{ http_hostname }}
+  become: True
