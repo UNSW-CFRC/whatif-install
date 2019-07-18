@@ -1,0 +1,24 @@
+---
+- name: Install the certificate and key
+    sudo cp SSL_Chain_whatif-test.be.unsw.edu.au.key /etc/ssl/private
+    sudo cp SSL_Chain_whatif-test.be.unsw.edu.au.crt /etc/ssl/certs/SSL_Chain_whatif-test.be.unsw.edu.au.pem
+
+- name: Configure Apache SSL Certificate File
+  replace:
+    path: /etc/apache2/sites-enabled/default-ssl.conf
+    regexp: '^\s*SSLCertificateFile.*$'
+    replace: 'SSLCertificateFile      /etc/ssl/certs/SSL_Chain_whatif-test.be.unsw.edu.au.pem'
+  become: True
+
+- name: Configure Apache SSL Certificate Key File
+  replace:
+    path: /etc/apache2/sites-enabled/default-ssl.conf
+    regexp: '^\s*SSLCertificateKeyFile.*$'
+    replace: 'SSLCertificateKeyFile /etc/ssl/private/SSL_Chain_whatif-test.be.unsw.edu.au.key'
+  become: True
+
+- name: Import the public key into the java keystore
+  shell: ./refresh-java-keystore.sh
+  args:
+    chdir: ~/online-whatif/utils
+  become: True

@@ -1,0 +1,12 @@
+---
+- name: Restart all services
+  service:
+    name: '{{ item }}'
+    state: restarted
+  with_items:
+    - dovecot
+    - postfix
+    - postgresql
+    - couchdb
+    - tomcat7
+    - apache2
