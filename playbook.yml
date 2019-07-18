@@ -8,5 +8,8 @@
 - name: Install whatif
   import_playbook: whatif.yml
 
+- name: Install security certificate
+  import_playbook: cert.yml
+
 - name: Check site is up before exiting
   import_playbook: check.yml
