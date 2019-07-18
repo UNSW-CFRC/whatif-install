@@ -28,5 +28,5 @@
 - name: Import the public key into the java keystore
   shell: ./refresh-java-keystore.sh
   args:
-    chdir: ~/online-whatif/utils
+    chdir: "{{ lookup('env', 'HOME') }}/online-whatif/utils"
   become: True
