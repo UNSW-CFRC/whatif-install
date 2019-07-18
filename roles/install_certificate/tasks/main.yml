@@ -1,10 +1,14 @@
 ---
 - name: Install the certificate and key
-  command: cp {{ certfile_basename }}.key /etc/ssl/private
+  copy:
+    src: '{{ certfile_basename }}.key'
+    dest: /etc/ssl/private/{{ certfile_basename }}.key
   become: True
 
 - name: Install the certificate and key
-  command: cp {{ certfile_basename }}.crt /etc/ssl/certs/{{ certfile_basename }}.pem
+  copy:
+    src: '{{ certfile_basename }}.crt'
+    dest: /etc/ssl/certs/{{ certfile_basename }}.pem
   become: True
 
 - name: Configure Apache SSL Certificate File
