@@ -4,7 +4,14 @@
     repo: '{{ repo_url }}'
     dest: ~/{{ project_name }}
 
-- debug: msg="Starting install task at {{ ansible_date_time.time }}. This task will take about 45 minutes."
+- name: Check if whatif installed
+  stat:
+    path: /var/lib/tomcat7/webapps/aurin-wif/
+  register: whatif_dir
+
+- debug:
+    msg: Starting install task at {{ ansible_date_time.time }}. This task will take about 45 minutes.
+  when: whatif_dir.stat.isdir is not defined
 
 - name: Install whatif
   expect:
@@ -13,9 +20,12 @@
       'DNS name to use for whatif .*': '{{ http_hostname }}'
     chdir: '{{ ansible_env.HOME }}/{{ project_name }}/utils'
     timeout:
+    creates: /var/lib/tomcat7/webapps/aurin-wif/
   become: True
 
-- debug: msg="Finished install task at {{ ansible_date_time.time }}"
+- debug:
+    msg: Finished install task at {{ ansible_date_time.time }}
+  when: whatif_dir.stat.isdir is not defined
 
 - include_tasks: config_email.yml
 
