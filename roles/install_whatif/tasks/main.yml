@@ -4,6 +4,8 @@
     repo: '{{ repo_url }}'
     dest: ~/{{ project_name }}
 
+- debug: msg="Starting install task at {{ ansible_date_time.time }}. This task will take about 45 minutes."
+
 - name: Install whatif
   expect:
     command: /bin/bash ./install.sh
@@ -12,6 +14,8 @@
     chdir: '{{ ansible_env.HOME }}/{{ project_name }}/utils'
     timeout:
   become: True
+
+- debug: msg="Finished install task at {{ ansible_date_time.time }}"
 
 - include_tasks: config_email.yml
 
