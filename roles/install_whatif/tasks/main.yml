@@ -14,3 +14,10 @@
   become: True
 
 - include_tasks: config_email.yml
+
+- name: Set admin password
+  replace:
+    path:
+    regexp: '^\s*env.auth.adminPassword\s*=.*$'
+    replace: env.auth.adminPassword={{ admin_password }}
+  become: True
