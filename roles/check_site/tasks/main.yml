@@ -2,6 +2,7 @@
 - name: Wait up to 15 seconds until site is up
   uri:
     url: '{{ public_protocol }}://{{ http_hostname }}'
+    validate_certs: False
   register: site_check
   retries: 3
   delay: 5
