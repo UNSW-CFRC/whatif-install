@@ -70,3 +70,8 @@
     path: '{{ playbook_dir }}/group_vars/{{ envt }}_{{ org }}'
     regexp: '^\s*assign_private_ip\s*:\s*[^#\n]*$'
     replace: 'assign_private_ip: ''"PrivateIpAddress": "{{ ''{{ private_ip }}'' }}",'' '
+
+- name: remove stale key
+  known_hosts:
+    name: '{{ stack_result.stack_outputs.PrvIp }}'
+    state: absent
