@@ -62,11 +62,11 @@
 - name: Write private IP group variable
   replace:
     path: '{{ playbook_dir }}/group_vars/{{ envt }}_{{ org }}'
-    regexp: '^\s*private_ip\s*:\s*[^#]*'
+    regexp: '^\s*private_ip\s*:\s*[^#\n]*$'
     replace: 'private_ip: {{ stack_result.stack_outputs.PrvIp }} '
 
 - name: Write group variable to assign private IP in stack
   replace:
     path: '{{ playbook_dir }}/group_vars/{{ envt }}_{{ org }}'
-    regexp: '^\s*assign_private_ip\s*:\s*[^#]*'
+    regexp: '^\s*assign_private_ip\s*:\s*[^#\n]*$'
     replace: 'assign_private_ip: ''"PrivateIpAddress": "{{ ''{{ private_ip }}'' }}",'' '
