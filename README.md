@@ -1,6 +1,6 @@
 # whatif_install
 
-Launches an [Online WhatIf](https://github.com/AURIN/online-whatif) server.
+Launches an [Online WhatIf](https://github.com/AURIN/online-whatif) server using the [automatic installation script](https://github.com/AURIN/online-whatif/blob/master/INSTALL.md#automatic-installation-script).
 
 ## Terms
 
@@ -27,11 +27,13 @@ Save the key file and copy it to your Ansible control server as `~/.ssh/WhatIf_O
 Make it read-only with `chmod 0600 ~/.ssh/WhatIf_ORG_ENV.pem`.
 
 ## Security certificate
-Generate a security certificate or request it from your network service providers.
+Generate a security certificate or request it from your network service provider.
 
-When available, copy the certificate and private key files to the Ansible Control server, into the directory roles/install_certificate/files.
+Once available, copy the certificate and private key files to the Ansible Control server, into the sub-directory `roles/install_certificate/files`.
 
-Install whatif:
+## Build whatif server
+
+Launch the playbook to create and install the whatif server:
 
 `ansible_playbook -i ENV_ORG playbook.yml --ask-vault-pass`
 
@@ -57,7 +59,19 @@ You should see output like:
 root     31761  7899  1 17:08 pts/1    00:00:06 /usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java -classpath /usr/share/maven/boot/plexus-classworlds-2.x.jar -Dclassworlds.conf=/usr/share/maven/bin/m2.conf -Dmaven.home=/usr/share/maven org.codehaus.plexus.classworlds.launcher.Launcher clean package -Ddeployment=development -Dsystem=ali-dev -Daurin.dir=/etc/aurin
 ```
 
-Once completed you may login to the server.
+# Configuration
+
+Once completed you may login to the workbench:
+
+URL: https://SERVER/workbenchauth  
+Username: aurin  
+Password: *admin password as set above*
+
+Where SERVER is the fully qualified domain name of the server.
+
+Register new users. They will receive an email with instructions for resetting their temporary password and logging in.
+
+User login is at https://SERVER which redirects to https://SERVER/whatif/login.
 
 # Troubleshooting
 
