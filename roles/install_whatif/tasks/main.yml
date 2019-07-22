@@ -31,7 +31,7 @@
 
 - name: Set admin password
   replace:
-    path:
+    path: /etc/aurin/envision-combined.properties
     regexp: '^\s*env.auth.adminPassword\s*=.*$'
     replace: env.auth.adminPassword={{ admin_password }}
   become: True
