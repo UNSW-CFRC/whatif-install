@@ -6,6 +6,9 @@
 private_ip: 10.116.2.113 # Private IP address of server
 assign_private_ip: '"PrivateIpAddress": "{{ private_ip }}",'
 
+# Repeating this here because it didn't stick from group_vars/all
+ansible_ssh_private_key_file: ~/.ssh/{{ aws_keypair }}_{{ org }}_{{ envt }}.pem
+
 vpc_id: vpc-57c87032
 subnet_id: subnet-1823467d
 
