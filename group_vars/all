@@ -8,7 +8,7 @@ project_shortname: whatif
 project_name: "{{ project | regex_replace(' ', '-') | lower }}"
 
 host_name: '{{ project_shortname }}{{ envt_suffix | replace("-prod","") }}'
-http_hostname: '{{ project_shortname }}-{{ envt }}.{{ subdomain }}'
+http_hostname: '{{ host_name }}.{{ subdomain }}'
 
 repo_owner: AURIN
 repo_url: https://github.com/{{ repo_owner }}/{{ project_name }}.git
