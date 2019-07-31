@@ -10,7 +10,9 @@ project_name: "{{ project | regex_replace(' ', '-') | lower }}"
 host_name: '{{ project_shortname }}{{ envt_suffix | replace("-prod","") }}'
 http_hostname: '{{ host_name }}.{{ subdomain }}'
 
-repo_owner: AURIN
+# repo_owner: AURIN
+repo_owner: UNSW-CFRC
+repo_branch: ubuntu-18
 repo_url: https://github.com/{{ repo_owner }}/{{ project_name }}.git
 
 aws_keypair: WhatIf

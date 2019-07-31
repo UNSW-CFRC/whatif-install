@@ -2,7 +2,8 @@
 - name: Clone whatif
   git:
     repo: '{{ repo_url }}'
-    dest: ~/{{ project_name }}
+    version: '{{ repo_branch | default('master') }}'
+    dest: '~/{{ project_name }}'
 
 - name: Check if whatif installed
   stat:
