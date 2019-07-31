@@ -75,4 +75,4 @@ User login is at https://SERVER which redirects to https://SERVER/whatif/login.
 
 # Troubleshooting
 
-Use `view /var/log/tomcat7/catalina.out` to check the Tomcat logs for errors.
+Use `view /var/log/tomcat8/catalina.out` to check the Tomcat logs for errors.

@@ -7,7 +7,7 @@
 
 - name: Check if whatif installed
   stat:
-    path: /var/lib/tomcat7/webapps/aurin-wif/
+    path: /var/lib/tomcat8/webapps/aurin-wif/
   register: whatif_dir
 
 - debug:
@@ -20,7 +20,7 @@
       'DNS name to use for whatif .*': '{{ http_hostname }}'
     chdir: '{{ ansible_env.HOME }}/{{ project_name }}/utils'
     timeout:
-    creates: /var/lib/tomcat7/webapps/aurin-wif/
+    creates: /var/lib/tomcat8/webapps/aurin-wif/
   become: True
 
 - include_tasks: config_email.yml

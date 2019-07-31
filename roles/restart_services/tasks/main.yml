@@ -8,6 +8,6 @@
     - postfix
     - postgresql
     - couchdb
-    - tomcat7
+    - tomcat8
     - apache2
   become: True
