@@ -5,7 +5,6 @@
       - python3-pip
       - git
     update_cache: True
-  become: True
 
 # - name: Recognise pip3
 #   alternatives:
@@ -17,4 +16,3 @@
 - name: Install pexpect for Ansible
   pip:
     name: pexpect
-  become: True

@@ -5,12 +5,22 @@
     mode: 0600
   delegate_to: localhost
 
-- include_tasks: set_hostname.yml
 - name: Configure ssh to use port 443 for github.com
   copy:
     src: ssh_config
     dest: ~/.ssh/config
 
-- include_tasks: set_timezone.yml
+- include_tasks:
+    file: set_hostname.yml
+    apply:
+      become: True
 
-- include_tasks: install_requirements.yml
+- include_tasks:
+    file: set_timezone.yml
+    apply:
+      become: True
+
+- include_tasks:
+    file: install_requirements.yml
+    apply:
+      become: True
