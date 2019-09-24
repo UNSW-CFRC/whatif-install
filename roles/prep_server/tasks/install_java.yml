@@ -1,0 +1,29 @@
+---
+- name: Download AdoptOpenJDK Java 8
+  get_url:
+    url: https://github.com/AdoptOpenJDK/openjdk8-binaries/releases/download/jdk8u222-b10/OpenJDK8U-jdk_x64_linux_hotspot_8u222b10.tar.gz
+    dest: /tmp
+
+- name: Create java folder
+  file:
+    path: /usr/local/java
+    state: directory
+
+- name: Extract Java
+  unarchive:
+    src: /tmp/OpenJDK8U-jdk_x64_linux_hotspot_8u222b10.tar.gz
+    dest: /usr/local/java
+    remote_src: yes
+
+- name: Set Java environment variables
+  blockinfile:
+    path: /etc/profile
+    block: |
+      export JAVA_HOME=/usr/local/java/jdk8u222-b10
+      export JRE_HOME=/usr/local/java/jdk8u222-b10
+      export PATH=$PATH:$JRE_HOME/bin:$JAVA_HOME/bin
+
+- name: set Java 8 as default
+  alternatives:
+    name: java
+    path: /usr/local/java/jdk8u222-b10/bin/java

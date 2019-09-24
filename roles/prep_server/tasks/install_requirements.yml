@@ -16,3 +16,5 @@
 - name: Install pexpect for Ansible
   pip:
     name: pexpect
+
+- include_tasks: install_java.yml
